@@ -1,0 +1,20 @@
+{
+  "name": "it122_demo",
+  "version": "1.0.0",
+  "description": " demo application for it122",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keto3000/sum21-it122.git"
+  },
+  "author": "keith scarmato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keto3000/sum21-it122/issues"
+  },
+  "homepage": "https://github.com/keto3000/sum21-it122#readme"
+}
