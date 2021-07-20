@@ -34,20 +34,53 @@ let medPlants = [
     latinName: "Taxus brevifolia",
     habitat: "Moist – mature Douglas Fir and Western Hemlock forests",
     harvestTime: "Year-round",
-  },
+  }
 ];
 
-
-//+++ below are comments for hw2 assignment +++++
+//+++ start comments for hw2 assignment +++++
 
 // getAll method that returns all array items
 const getAll = () => {
-    return medPlants.find(() => {
-      return medPlant;
-    });  
-  };
+  return [
+    {
+      commonName: "Devil's Club",
+      latinName: "Oplopanax horridus",
+      habitat: "Moist woods",
+      harvestTime: "Late spring, early summer",
+    },
+  
+    {
+      commonName: "Foxglove",
+      latinName: "Digitalis Purpurea",
+      habitat: "Roadsides, fields",
+      harvestTime: "Late spring, early summer",
+    },
+  
+    {
+      commonName: "Kinnikinnick",
+      latinName: "Arctostaphylos uva-ursi",
+      habitat: "Sandy, dry rocky slopes",
+      harvestTime: "Late spring, early summer",
+    },
+  
+    {
+      commonName: "Oregon Grape",
+      latinName: "Mahonia nervosa",
+      habitat: "Low-middle elevations",
+      harvestTime: "Early spring, late autumn",
+    },
+  
+    {
+      commonName: "Pacific Yew",
+      latinName: "Taxus brevifolia",
+      habitat: "Moist – mature Douglas Fir and Western Hemlock forests",
+      harvestTime: "Year-round",
+    }
+  ]
+ };
 
-console.log(medPlants);
+console.log(getAll(medPlants));
+
 
 // getItem method that returns a single item
 const getItem = (commonName) => {
@@ -60,4 +93,4 @@ console.log(getItem("Devil's Club"));
 
 // export both getAll and getitem methods
 
-export {getALL, getItem};
+export {getAll, getItem};
