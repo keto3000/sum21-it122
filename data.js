@@ -5,34 +5,34 @@ let medPlants = [
     commonName: "Devil's Club",
     latinName: "Oplopanax horridus",
     habitat: "Moist woods",
-    harvestTime: "Late spring, early summer",
+    harvestTime: "Late Spring, early Summer",
   },
 
   {
     commonName: "Foxglove",
     latinName: "Digitalis Purpurea",
     habitat: "Roadsides, fields",
-    harvestTime: "Late spring, early summer",
+    harvestTime: "Late Spring, early Summer",
   },
 
   {
     commonName: "Kinnikinnick",
     latinName: "Arctostaphylos uva-ursi",
     habitat: "Sandy, dry rocky slopes",
-    harvestTime: "Late spring, early summer",
+    harvestTime: "Late Spring, early Summer",
   },
 
   {
     commonName: "Oregon Grape",
     latinName: "Mahonia nervosa",
     habitat: "Low-middle elevations",
-    harvestTime: "Early spring, late autumn",
+    harvestTime: "Early Spring, late Autumn",
   },
 
   {
     commonName: "Pacific Yew",
     latinName: "Taxus brevifolia",
-    habitat: "Moist – mature Douglas Fir and Western Hemlock forests",
+    habitat: "Moist–mature Douglas Fir and Western Hemlock forests",
     harvestTime: "Year-round",
   }
 ];
@@ -41,43 +41,7 @@ let medPlants = [
 
 // getAll method that returns all array items
 const getAll = () => {
-  return [
-    {
-      commonName: "Devil's Club",
-      latinName: "Oplopanax horridus",
-      habitat: "Moist woods",
-      harvestTime: "Late spring, early summer",
-    },
-  
-    {
-      commonName: "Foxglove",
-      latinName: "Digitalis Purpurea",
-      habitat: "Roadsides, fields",
-      harvestTime: "Late spring, early summer",
-    },
-  
-    {
-      commonName: "Kinnikinnick",
-      latinName: "Arctostaphylos uva-ursi",
-      habitat: "Sandy, dry rocky slopes",
-      harvestTime: "Late spring, early summer",
-    },
-  
-    {
-      commonName: "Oregon Grape",
-      latinName: "Mahonia nervosa",
-      habitat: "Low-middle elevations",
-      harvestTime: "Early spring, late autumn",
-    },
-  
-    {
-      commonName: "Pacific Yew",
-      latinName: "Taxus brevifolia",
-      habitat: "Moist – mature Douglas Fir and Western Hemlock forests",
-      harvestTime: "Year-round",
-    }
-  ]
- };
+  return medPlants};
 
 console.log(getAll(medPlants));
 
