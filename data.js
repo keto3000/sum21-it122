@@ -49,7 +49,7 @@ console.log(getAll(medPlants));
 // getItem method that returns a single item
 const getItem = (commonName) => {
   return medPlants.find((medPlant) => {
-    return medPlant.commonName === "Devil's Club";
+    return medPlant.commonName === commonName;
   });
 };
 
