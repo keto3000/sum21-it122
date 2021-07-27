@@ -1,0 +1,21 @@
+/* styles for my static files */
+
+/* html {
+    background-color: skyblue;
+} */
+
+h3 a {
+    color: #fff;
+}
+
+body {
+    background-image: url("images/forestPacificNW.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    margin-left: 10px;
+}
+
+li>a {
+    color: #fff;
+}

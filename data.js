@@ -1,5 +1,6 @@
-// An array w/5 objects & 4 attributes per object- Medicinal Herbs of the Pac NW-
+'use strict'
 
+// An array w/5 objects & 4 attributes per object- Medicinal Herbs of the Pac NW-
 let medPlants = [
   {
     commonName: "Devil's Club",

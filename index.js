@@ -1,39 +1,59 @@
-import http from "http";
-import {parse} from "querystring";
-import { getAll, getItem } from "./data.js";
+"use strict";
 
-http
-  .createServer((req, res) => {
-    var path = req.url.toLowerCase();
-    let url = req.url.split("?");
-    let query = parse(url[1]);
-    console.log(query);
+import * as medPlant from "./data.js";
+import express from "express";
+import exphbs from "express-handlebars";
 
-    switch (url[0]) {
-      // update (home) route to return all array items
-      case "/":
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end(JSON.stringify(getAll()));
-        break;
+const app = express();
 
+app.set("port", process.env.PORT || 3000);
+app.use(express.static("./public")); // set location for static files
+app.use(express.urlencoded()); //Parse URL-encoded bodies
+app.engine("hbs", exphbs({ defaultLayout: "main.hbs" }));
+app.set("view engine", "hbs");
 
-      // create detail route to return and display specific data for first medPlant item: Devil's Club
-      case "/detail":
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end(JSON.stringify(getItem(query.name)));
-        break;
+// send home.hbs file as response
+app.get("/", (req, res) => {
+  res.render("home", { medPlants: medPlant.getAll()});
+});
 
-      case "/about":
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end("About: I am a Sci-Fi enthusiast");
-        break;
+// send detail.hbs file based on item query as response
+app.get("/detail", (req, res) => {
+  console.log(req.query);
+  let result = medPlant.getItem(req.query.commonName);
+  res.render("detail", {commonName: req.query.commonName, result});
+});
 
-      default:
-        res.writeHead(404, { "Content-Type": "text/plain" });
-        res.end("Not found");
-        break;
-    }
-  })
-  .listen(process.env.PORT || 3000);
+// send plain text response
+app.get("/about", (req, res) => {
+  res.type("text/plain");
+  res.send("About page");
+});
 
-console.log("after createServer");
+// define 404 handler
+app.use((req, res) => {
+  res.type("text/plain");
+  res.status(404);
+  res.send("404 - Not found");
+});
+
+app.listen(app.get("port"), () => {
+  console.log("Express started");
+});
+
+// test these delete routes for hw4
+
+//  app.delete('/user', (req, res) => {
+//   res.send('Got a DELETE request at /user')
+// })
+
+// app.delete('/ser', function (req, res) {
+//   // First read existing users.
+//   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+//      data = JSON.parse( data );
+//      delete data["user" + 2];
+
+//      console.log( data );
+//      res.end( JSON.stringify(data));
+//   });
+// })

@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/keto3000/sum21-it122/issues"
   },
-  "homepage": "https://github.com/keto3000/sum21-it122#readme"
+  "homepage": "https://github.com/keto3000/sum21-it122#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.2",
+    "mongoose": "^5.13.3"
+  }
 }
