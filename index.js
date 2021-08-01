@@ -1,6 +1,6 @@
 "use strict";
 
-import * as medPlant from "./data.js";
+import { MedPlant } from "./models/medPlant.js";
 import express from "express";
 import exphbs from "express-handlebars";
 
@@ -12,22 +12,45 @@ app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.engine("hbs", exphbs({ defaultLayout: "main.hbs" }));
 app.set("view engine", "hbs");
 
-// send home.hbs file as response
+// respond to browser only after mongodb query completes
 app.get("/", (req, res) => {
-  res.render("home", { medPlants: medPlant.getAll()});
-});
-
-// send detail.hbs file based on item query as response
-app.get("/detail", (req, res) => {
-  console.log(req.query);
-  let result = medPlant.getItem(req.query.commonName);
-  res.render("detail", {commonName: req.query.commonName, result});
+  MedPlant.find({})
+    .lean()
+    .then((medPlants) => {
+      res.render("home", { medPlants });
+    })
+    .catch((err) => next(err));
 });
 
 // send plain text response
 app.get("/about", (req, res) => {
   res.type("text/plain");
   res.send("About page");
+});
+
+// db query can use request parameters
+app.get("/detail", (req, res) => {
+  MedPlant.findOne({ commonName: req.query.commonName })
+    .lean()
+    .then((medPlant) => {
+      res.render("detail", { result: medPlant });
+    })
+    .catch((err) => next(err));
+});
+
+app.get("/delete", (req, res) => {
+  MedPlant.remove({ commonName: req.query.commonName }, (err, result) => {
+    if (err) return next(err);
+    let deleted = result.result.n !== 0; // n will be 0 if no docs deleted
+    MedPlant.count((err, total) => {
+      res.type("text/html");
+      res.render("delete", {
+        commonName: req.query.commonName,
+        deleted: result.result.n !== 0,
+        total: total,
+      });
+    });
+  });
 });
 
 // define 404 handler
@@ -40,20 +63,3 @@ app.use((req, res) => {
 app.listen(app.get("port"), () => {
   console.log("Express started");
 });
-
-// test these delete routes for hw4
-
-//  app.delete('/user', (req, res) => {
-//   res.send('Got a DELETE request at /user')
-// })
-
-// app.delete('/ser', function (req, res) {
-//   // First read existing users.
-//   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-//      data = JSON.parse( data );
-//      delete data["user" + 2];
-
-//      console.log( data );
-//      res.end( JSON.stringify(data));
-//   });
-// })

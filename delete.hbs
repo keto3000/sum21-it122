@@ -1,4 +1,4 @@
-{{! server-side comment: This will show detail info for the specifically requested MedPlant }}
+{{! server-side comment: This will show deleted database item and current db coount after deletion  }}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,13 +13,11 @@
     <h3 class="home link"><a href="/">Home</a></h3>
     
 
-{{#if result}}
-    <h2>Common Name: {{result.commonName}}</h2>
-    <li>Latin Name: {{result.latinName}}
-    <li>Habitat: {{result.habitat}}
-    <li>Harvest Time: {{result.harvestTime}}
+{{#if result.deleted}}
+    <h2>{{commonName}} has been deleted.</h2>
+    remaining total: {{result.total}}
 {{else}}
-    <h2>{{result.commonName}} not found</h2>
+    <h2>{{commonName}} not found</h2>
 {{/if}}
 
 </body>

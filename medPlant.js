@@ -21,4 +21,4 @@ const medPlantSchema = new Schema({
   harvestTime: String
 });
 
-export const MedPlant = mongoose.model("MedPlant", medPlantSchema, );
+export const MedPlant = mongoose.model("MedPlant", medPlantSchema, 'medPlants');
