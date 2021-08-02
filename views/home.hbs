@@ -1,0 +1,18 @@
+{{! server-side comment   unordered list of medplants in array}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicinal Plants of the Pacific NorthWest</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+      {{#each medPlants}}
+        <li><a href="/detail?commonName={{commonName}}">{{commonName}}</a></li>
+      {{/each}}
+
+</body>
+</html>

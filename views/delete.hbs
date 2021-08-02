@@ -1,0 +1,24 @@
+{{! server-side comment: This will show deleted database item and current db coount after deletion  }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <title>Medicinal Plants of the Pacific NorthWest</title>    
+</head>
+<body>
+    
+    <h3 class="home link"><a href="/">Home</a></h3>
+    
+
+{{#if result.deleted}}
+    <h2>{{commonName}} has been deleted.</h2>
+    remaining total: {{result.total}}
+{{else}}
+    <h2>{{commonName}} not found</h2>
+{{/if}}
+
+</body>
+</html>
