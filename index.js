@@ -106,7 +106,7 @@ app.get("/api/medPlants/:commonName", (req, res) => {
 // POST updateOne - API route using UPSERT to ADD/UPDATE 1 doc  req can use body
 app.post("/api/medPlants/add", (req,res) => {
   if(!req.body) {
-    res.status(400).send("URL parameter: commonName is missing")
+    res.status(400).json({success: false, msg: "URL parameter: commonName is missing"})
   }
   MedPlant.updateOne({ commonName:req.body.commonName },
     req.body, { upsert: true },(_err, result) => {
@@ -117,8 +117,8 @@ app.post("/api/medPlants/add", (req,res) => {
 
 // DELETE remove -  API route  using field 'commonName' as key
 app.delete("/api/medPlants/delete", (req, res) => {
-  if(!req.body.commonName) {
-    res.status(400).send("URL parameter: commonName is missing")
+  if(!req.body) {
+  res.status(400).json({success: false, msg: "URL parameter: commonName is missing"})
   }
   MedPlant.findOneAndRemove({ commonName: req.body.commonName },
      req.body, (_err, result) => {
