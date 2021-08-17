@@ -31,7 +31,7 @@
 /* {"_id":"610fa76387286b669046425e","commonName":"Devil's Club","__v":0,"habitat":"Moist woods","harvestTime":"Late Spring, early Summer","latinName":"Oplopanax horridus"} */
 
   const MedPlants = (props) => {
-    const listItems = medPlants.map((item) =>
+    const listItems = props.data.map((item) =>
     <li key={item._id}>
       <a href={"/detail?commonName="+item.commonName}>{item.commonName}</a>
     </li>);
@@ -40,7 +40,7 @@
   }
 
 ReactDOM.render(
-      <div><MedPlants /></div>,
+      <div><MedPlants data = {medPlants}/></div>,
 document.getElementById('root')
 );
 
