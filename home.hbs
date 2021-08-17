@@ -1,4 +1,4 @@
-{{! server-side comment   unordered list of medplants in array}}
+{{! server-side comment Using REACT to render an unordered list of medplants in array}}
 
 
 <html lang="en">
@@ -15,21 +15,35 @@
 
 <body>
 
+<form method="POST" action="/detail">
+  <input type="text" name="commonName" placeholder="commonName" required maxlength="100">
+  <button>Search</button>
+</form>
+
+{{!-- root is used as element id by React --}}
 <div id="root"></div>
 <script type="text/babel">
 
-    const items = {{{ items }}}
-    console.log(items)
+// declare variables
+    const medPlants = {{{ medPlants }}}
+      console.log(medPlants)
 
-    // define other components
+/* {"_id":"610fa76387286b669046425e","commonName":"Devil's Club","__v":0,"habitat":"Moist woods","harvestTime":"Late Spring, early Summer","latinName":"Oplopanax horridus"} */
 
-    const App = () => {
-      return <div>{{#each medPlants}}
-        <li><a href="/detail?commonName={{commonName}}">{{commonName}}</a></li>
-      {{/each}}</div>;
-    }
+  const MedPlants = (props) => {
+    const listItems = medPlants.map((item) =>
+    <li key={item._id}>
+      <a href={"/detail?commonName="+item.commonName}>{item.commonName}</a>
+    </li>);
 
-    ReactDOM.render(<App />, document.getElementById('root'));
+    return <ul>{listItems}</ul>
+  }
+
+ReactDOM.render(
+      <div><MedPlants /></div>,
+document.getElementById('root')
+);
+
 </script>
 </body>
 </html>

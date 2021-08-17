@@ -18,9 +18,11 @@ app.use("/api", cors()); // set Access-Control-Allow-Origin header for api route
 app.get("/", (req, res) => {
   MedPlant.find({}).lean()
     .then((medPlants) => {
-      res.render("home", { medPlants });
-    })
-    .catch((err) => next(err));
+      // res.render("home", { medPlants });
+
+      res.render("home", {medPlants: JSON.stringify(medPlants)});
+    });
+    // .catch((err) => next(err));
 });
 
 // send plain text response
