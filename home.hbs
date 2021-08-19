@@ -1,57 +1,121 @@
 {{! server-side comment Using REACT to render an unordered list of medplants in array}}
-
-
-<html lang="en">
-  <html>
+<html>
 <head>
     <title>React App Demo</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
-
-<form method="POST" action="/detail">
-  <input type="text" name="commonName" placeholder="commonName" required maxlength="100">
-  <button>Search</button>
-</form>
 
 {{!-- root is used as element id by React --}}
 <div id="root"></div>
 <script type="text/babel">
 
-// declare variables
-    const medPlants = {{{ medPlants }}}
-      console.log(medPlants)
-
-// click event Handler
-const showDetail = () => {
-        //<a href={"/detail?commonName="+item.commonName}></a>
-        console.log(event.target)
-        console.log(event.target.innerText)
-        console.log(event.target.id)
-        window.location.href = "/detail?commonName=" + event.target.innerText;
-}
-
 /* {"_id":"610fa76387286b669046425e","commonName":"Devil's Club","__v":0,"habitat":"Moist woods","harvestTime":"Late Spring, early Summer","latinName":"Oplopanax horridus"} */
 
+// returns a list of medPlants
   const MedPlants = (props) => {
-    const listItems = props.data.map((item) =>
-    <li key={item._id}  id={item._id}   onClick={props.clickHandler}>
-      {item.commonName}
-    </li>);
-
-    return <ul>{listItems}</ul>
+          // props is an array
+      const listItems = props.data.map((item) =>
+      <li key={item._id} id={item._id} onClick={props.clickHandler}>
+          {item.title}
+      </li>);
+      return <ul>{listItems}</ul>
   }
 
-ReactDOM.render(
-    <div><MedPlants data={medPlants} clickHandler={showDetail}/></div>,
-  document.getElementById('root')
-);
+const ItemDetail = (props) => {
+  return (<div>
+    </hr>
+  
+    <h3>Details</h3>
+
+<form>
+  commonName: <input type="text" name="commonName" value={props.item.commonName || ""} onChange={props.handleChange} /><br/>
+  latinName: <input  type="text" name="latinName" value={props.item.latinName || ""} onChange={props.handleChange} /><br/>
+  habitat: <input type="text" name="habitat" value={props.item.habitat || ""} onChange={props.handleChange}/><br/>
+  harvestTime: <input  type="text" name="harvestTime" value={props.item.harvestTime || ""} onChange={props.handleChange}/><br/>
+</form>
+  <button name="Clear" onClick={props.clearForm}>Clear</button>
+
+  <button>Delete</button>
+  <button name="Save" onClick={props.save}>Save</button>
+</div>
+  )}
+
+class MedPlantsApp extends React.Component {
+  constructor(props) {
+    super(props);
+    // initialize with server app data
+    this.state = {
+      items: {{{medPlants}}},
+      currentItem: {}
+    };
+
+  
+    this.selectItem = this.selectItem.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.clearForm = this.clearForm.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+// click event handler
+    selectItem = (event) => {
+      console.log(event.target.innerText)
+      const found = this.state.items.find((item) => {
+        return item.commonName === event.target.innerText;
+      });
+
+    this.setState({currentItem: found})
+}
+
+handleChange = (event) =>
+  let newItem = this.state.currentItem;
+  newItem[e.target.name] = event.target.value;
+  this.setState({currentItem: newItem});
+}
+
+onSave() {
+  let newItem = this.state.currentItem;
+   if (!newItem.commonName) {
+     return;
+}
+}
+
+clearForm () =>{
+  this.setState({currentItem: {} } )
+}
+
+
+selectItem (event) {
+  const found = this.state.items.find((item) => {
+    return item.commonName === event.target.innerText;
+  });
+  this.setState({currentItem: found})
+}
+
+
+render() {
+  return (
+  <div> <h2>List of MedPlants</h2>
+
+      <MedPlants data={this.state.items} clickHandler={this.selectItem}/>
+      <ItemDetail item={this.state.currentItem} />
+
+      <hr/>
+
+     <ItemDetail>
+        item={this.state.currentItem}
+        handleChange={this.handleChange}
+        clearForm={this.clearForm}
+        onSave={this.onSave}
+        onChange ={this.onChange}
+      />
+    </div>
+    );
+  }
+    
+ReactDOM.render( <MedPlantsApp />, document.getElementById('root') );
 
 </script>
 </body>
